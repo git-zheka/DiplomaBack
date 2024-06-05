@@ -12,8 +12,8 @@ using VoloLearn.DataBase;
 namespace VoloLearn.Migrations
 {
     [DbContext(typeof(VoloLearnDbContext))]
-    [Migration("20240603175457_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240605152501_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,15 +48,10 @@ namespace VoloLearn.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OrganisationId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Reward")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrganisationId");
 
                     b.ToTable("Assignments");
                 });
@@ -196,17 +191,6 @@ namespace VoloLearn.Migrations
                     b.HasIndex("assigmentId");
 
                     b.ToTable("UserScores");
-                });
-
-            modelBuilder.Entity("VoloLearn.Models.Entities.Assignment", b =>
-                {
-                    b.HasOne("VoloLearn.Models.Entities.User", "Organisation")
-                        .WithMany()
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organisation");
                 });
 
             modelBuilder.Entity("VoloLearn.Models.Entities.AssimnetVisitor", b =>

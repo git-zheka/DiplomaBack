@@ -12,8 +12,8 @@ using VoloLearn.DataBase;
 namespace VoloLearn.Migrations
 {
     [DbContext(typeof(VoloLearnDbContext))]
-    [Migration("20240603180025_InitialCreate1")]
-    partial class InitialCreate1
+    [Migration("20240605160123_RemoveUserScore")]
+    partial class RemoveUserScore
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,33 +166,6 @@ namespace VoloLearn.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("VoloLearn.Models.Entities.UserScore", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("VisitorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("assigmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VisitorId");
-
-                    b.HasIndex("assigmentId");
-
-                    b.ToTable("UserScores");
-                });
-
             modelBuilder.Entity("VoloLearn.Models.Entities.AssimnetVisitor", b =>
                 {
                     b.HasOne("VoloLearn.Models.Entities.Assignment", "Assignment")
@@ -240,25 +213,6 @@ namespace VoloLearn.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("VoloLearn.Models.Entities.UserScore", b =>
-                {
-                    b.HasOne("VoloLearn.Models.Entities.User", "Visitor")
-                        .WithMany()
-                        .HasForeignKey("VisitorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VoloLearn.Models.Entities.Assignment", "assigment")
-                        .WithMany()
-                        .HasForeignKey("assigmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Visitor");
-
-                    b.Navigation("assigment");
                 });
 #pragma warning restore 612, 618
         }
