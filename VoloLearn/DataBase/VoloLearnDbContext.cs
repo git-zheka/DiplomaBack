@@ -18,6 +18,7 @@ namespace VoloLearn.DataBase
         public DbSet<OrganisationAssignments> OrganisationAssignments { get; set;}
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserScore> UserScores { get; set; }
+        public DbSet<SchoolCourse> SchoolCourses { get; set; }
     }
 
 

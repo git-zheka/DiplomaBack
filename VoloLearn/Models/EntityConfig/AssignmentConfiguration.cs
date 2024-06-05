@@ -8,7 +8,7 @@ namespace VoloLearn.Models.EntityConfig
     {
         public void Configure(EntityTypeBuilder<Assignment> builder)
         {
-
+            builder.HasOne(x => x.CreatedBy);
         }
     }
 }

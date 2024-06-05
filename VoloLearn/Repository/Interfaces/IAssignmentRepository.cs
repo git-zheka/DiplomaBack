@@ -1,6 +1,8 @@
-﻿namespace VoloLearn.Repository.Interfaces
+﻿using VoloLearn.Models.Entities;
+
+namespace VoloLearn.Repository.Interfaces
 {
-    public interface IAssignmentRepository
+    public interface IAssignmentRepository : IBaseRepository<Assignment>
     {
     }
 }

@@ -7,5 +7,7 @@
         public DateTime EventDate { get; set;}
         public int Goal { get; set; }
         public int Reward { get; set; }
+
+        public User CreatedBy { get; set; }
     }
 }
