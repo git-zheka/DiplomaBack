@@ -26,6 +26,7 @@ namespace VoloLearn.Repository
                 throw new Exception("You can't create Assigment");
             }
 
+            assignment.CreatedBy = founded;
             var result = await CreateAsync(assignment);
             SaveAsync();
 

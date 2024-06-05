@@ -1,16 +1,29 @@
 ﻿using VoloLearn.Models.Entities;
+using VoloLearn.Models.Service;
 using VoloLearn.Repository;
 using VoloLearn.Repository.Interfaces;
+using VoloLearn.Services.Interfaces;
 
 namespace VoloLearn.Services
 {
-    public class AssignmentService
+    public class AssignmentService : IAssignmentService
     {
-        private readonly IBaseRepository<Assignment> _baseRepository;
+        private readonly IAssignmentRepository _assignmentRepository;
 
-        public AssignmentService(IBaseRepository<Assignment> baseRepository)
+        public AssignmentService(IAssignmentRepository assignmentRepository)
         {
-            _baseRepository = baseRepository;
+            _assignmentRepository = assignmentRepository;
+        }
+
+        public async Task<Guid> CreateAssignmentAsync(CreateAssignmentModel assignment) 
+        {
+            var assignmentEntity = new Assignment
+            {
+                Description = assignment.Description,
+            };
+
+            var result = await _assignmentRepository.CreateAssignmentAsync(assignment.UserId, assignmentEntity);
+            return result;
         }
 
     }

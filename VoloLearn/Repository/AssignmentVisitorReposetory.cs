@@ -30,7 +30,7 @@ namespace VoloLearn.Repository
         public async Task ChangeStatusAsync(Guid assignmentId, Guid userId, AssignmentVisitStatus status)
         {
             var founded =  await _context.AssimnetVisitors.FirstOrDefaultAsync(x => x.Assignment.Id == assignmentId && x.User.Id == userId);
-            if (founded == null) { throw new Exception("Visit not founded") };
+            if (founded == null) { throw new Exception("Visit not founded"); }
             founded.Status = status;
             SaveAsync();
         }
