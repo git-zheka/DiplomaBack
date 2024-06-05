@@ -6,11 +6,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VoloLearn.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Assignments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Goal = table.Column<int>(type: "int", nullable: false),
+                    Reward = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assignments", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
@@ -44,30 +61,6 @@ namespace VoloLearn.Migrations
                         name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Assignments",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Goal = table.Column<int>(type: "int", nullable: false),
-                    Reward = table.Column<int>(type: "int", nullable: false),
-                    OrganisationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Assignments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Assignments_Users_OrganisationId",
-                        column: x => x.OrganisationId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -152,11 +145,6 @@ namespace VoloLearn.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Assignments_OrganisationId",
-                table: "Assignments",
-                column: "OrganisationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AssimnetVisitors_AssignmentId",
