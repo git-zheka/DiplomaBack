@@ -12,7 +12,7 @@ namespace VoloLearn.Repository
         public BaseRepository(VoloLearnDbContext context)
         {
             _context = context;
-            
+
         }
 
         public async virtual Task<List<TEntity>> GetAllAsync()
