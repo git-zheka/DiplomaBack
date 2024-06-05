@@ -22,7 +22,7 @@ namespace VoloLearn.Repository
         {
             user.PasswordHash = await CreatePasswordHash(password);
 
-            await UpdateAsync (user);
+            await UpdateAsync(user);
             await SaveAsync();
         }
 
