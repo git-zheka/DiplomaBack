@@ -29,6 +29,9 @@ builder.Services.AddDbContextPool<VoloLearnDbContext>((servicesprovider, builder
 
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+builder.Services.AddScoped<IAssignmentVisitorReposetory, AssignmentVisitorReposetory>();
+
 
 
 builder.Services.AddScoped<IUserService, UserService>();

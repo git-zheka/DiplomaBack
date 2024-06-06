@@ -26,5 +26,10 @@ namespace VoloLearn.Services
             return result;
         }
 
+        public async Task<List<Assignment>> GetAllAssignmentAsync()
+        {
+            var result = await _assignmentRepository.GetAllAsync();
+            return result;
+        }
     }
 }
