@@ -32,7 +32,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {

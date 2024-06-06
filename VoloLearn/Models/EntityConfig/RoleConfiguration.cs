@@ -11,10 +11,10 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         builder.HasData
         (
-            new Role { Name = DefaultRoleName.VolonteerName },
-            new Role { Name = DefaultRoleName.OrganisationName },
-            new Role { Name = DefaultRoleName.ModeratorName, IsSuperUser = true },
-            new Role { Name = DefaultRoleName.SchoolName }
+            new Role { Id = Guid.NewGuid(), Name = DefaultRoleName.VolonteerName },
+            new Role { Id = Guid.NewGuid(), Name = DefaultRoleName.OrganisationName },
+            new Role { Id = Guid.NewGuid(), Name = DefaultRoleName.ModeratorName, IsSuperUser = true },
+            new Role { Id = Guid.NewGuid(), Name = DefaultRoleName.SchoolName }
         );
         ;
 

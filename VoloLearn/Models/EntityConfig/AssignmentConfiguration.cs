@@ -8,7 +8,6 @@ public class AssignmentConfiguration : IEntityTypeConfiguration<Assignment>
 {
     public void Configure(EntityTypeBuilder<Assignment> builder)
     {
-        builder.HasOne(x => x.CreatedBy)
-            .WithMany(y => y.Assignments);
+        builder.HasOne(x => x.CreatedBy);
     }
 }

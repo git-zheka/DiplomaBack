@@ -23,8 +23,12 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     public async Task<Guid> CreateUserAsync(User user, string password)
     {
         user.PasswordHash = await CreatePasswordHash(password);
-        user.Role = await _roleRepository.GetByNameAsync(DefaultRoleName.VolonteerName);
-        return await CreateAsync(user);
+        var role = await _roleRepository.GetByNameAsync(DefaultRoleName.VolonteerName);
+        user.RoleId = role.Id;
+        var result = await CreateAsync(user);
+        await SaveAsync();
+
+        return result;
     }
 
 

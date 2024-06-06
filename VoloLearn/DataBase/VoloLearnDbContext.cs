@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VoloLearn.Models.Entities;
+using VoloLearn.Models.EntityConfig;
 
 namespace VoloLearn.DataBase;
 
@@ -9,6 +10,12 @@ public class VoloLearnDbContext : DbContext
     {
         ChangeTracker.LazyLoadingEnabled = false;
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
     }
 
     //TODO: DbSets
