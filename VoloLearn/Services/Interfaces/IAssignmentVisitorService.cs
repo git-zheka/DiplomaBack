@@ -1,6 +1,5 @@
-﻿namespace VoloLearn.Services.Interfaces
+﻿namespace VoloLearn.Services.Interfaces;
+
+public interface IAssignmentVisitorService
 {
-    public interface IAssignmentVisitorService
-    {
-    }
 }

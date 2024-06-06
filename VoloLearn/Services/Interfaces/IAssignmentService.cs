@@ -1,10 +1,8 @@
-﻿using VoloLearn.Models.Entities;
-using VoloLearn.Models.Service;
+﻿using VoloLearn.Models.Service;
 
-namespace VoloLearn.Services.Interfaces
+namespace VoloLearn.Services.Interfaces;
+
+public interface IAssignmentService
 {
-    public interface IAssignmentService
-    {
-        Task<Guid> CreateAssignmentAsync(CreateAssignmentModel assignment);
-    }
+    Task<Guid> CreateAssignmentAsync(CreateAssignmentModel assignment);
 }

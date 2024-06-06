@@ -1,13 +1,12 @@
-﻿namespace VoloLearn.Models.Entities
-{
-    public class Assignment : BaseEntiti
-    {
-        public string Name {get; set;}
-        public string Description {get; set;}
-        public DateTime EventDate { get; set;}
-        public int Goal { get; set; }
-        public int Reward { get; set; }
+﻿namespace VoloLearn.Models.Entities;
 
-        public User CreatedBy { get; set; }
-    }
+public class Assignment : BaseEntity
+{
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public DateTime EventDate { get; set; }
+    public int Goal { get; set; }
+    public int Reward { get; set; }
+
+    public User? CreatedBy { get; set; }
 }

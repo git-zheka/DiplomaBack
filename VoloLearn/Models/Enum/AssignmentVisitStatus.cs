@@ -1,9 +1,8 @@
-﻿namespace VoloLearn.Models.Enum
+﻿namespace VoloLearn.Models.Enum;
+
+public enum AssignmentVisitStatus
 {
-    public enum AssignmentVisitStatus
-    {
-        Visited,
-        NonComfirm,
-        Declinet
-    }
+    Visited,
+    NonComfirm,
+    Declinet
 }

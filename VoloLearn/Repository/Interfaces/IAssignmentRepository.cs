@@ -1,9 +1,8 @@
 ﻿using VoloLearn.Models.Entities;
 
-namespace VoloLearn.Repository.Interfaces
+namespace VoloLearn.Repository.Interfaces;
+
+public interface IAssignmentRepository : IBaseRepository<Assignment>
 {
-    public interface IAssignmentRepository : IBaseRepository<Assignment>
-    {
-        Task<Guid> CreateAssignmentAsync(Guid userid, Assignment assignment);
-    }
+    Task<Guid> CreateAssignmentAsync(Guid userid, Assignment assignment);
 }

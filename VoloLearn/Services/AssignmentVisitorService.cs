@@ -1,18 +1,14 @@
-﻿using VoloLearn.Models.Entities;
-using VoloLearn.Repository.Interfaces;
+﻿using VoloLearn.Repository.Interfaces;
 using VoloLearn.Services.Interfaces;
 
-namespace VoloLearn.Services
+namespace VoloLearn.Services;
+
+public class AssignmentVisitorService : IAssignmentVisitorService
 {
-    public class AssignmentVisitorService : IAssignmentVisitorService
+    private readonly IAssignmentVisitorRepository _assignmentVisitorRepository;
+
+    public AssignmentVisitorService(IAssignmentVisitorRepository assignmentVisitorRepository)
     {
-
-        private readonly IAssignmentVisitorReposetory _assignmentVisitorReposetory;
-        public AssignmentVisitorService(IAssignmentVisitorReposetory assignmentVisitorReposetory) 
-        {
-            _assignmentVisitorReposetory = assignmentVisitorReposetory;
-        }
-
-        
+        _assignmentVisitorRepository = assignmentVisitorRepository;
     }
 }

@@ -1,9 +1,8 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using VoloLearn.DataBase;
 using VoloLearn.Options;
 using VoloLearn.Repository;
@@ -30,11 +29,11 @@ builder.Services.AddDbContextPool<VoloLearnDbContext>((servicesprovider, builder
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
-builder.Services.AddScoped<IAssignmentVisitorReposetory, AssignmentVisitorReposetory>();
-
-
+builder.Services.AddScoped<IAssignmentVisitorRepository, AssignmentVisitorRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAssignmentService, AssignmentService>();
+builder.Services.AddScoped<IAssignmentVisitorService, AssignmentVisitorService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
 {

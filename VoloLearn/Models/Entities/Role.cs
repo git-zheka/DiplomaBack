@@ -1,9 +1,8 @@
-﻿namespace VoloLearn.Models.Entities
-{
-    public class Role : BaseEntiti
-    {
-        public  string Name { get; set; }
+﻿namespace VoloLearn.Models.Entities;
 
-        public bool IsSuperUser { get; set; }
-    }
+public class Role : BaseEntity
+{
+    public string Name { get; set; }
+
+    public bool IsSuperUser { get; set; }
 }

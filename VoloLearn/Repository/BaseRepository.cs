@@ -3,64 +3,56 @@ using VoloLearn.DataBase;
 using VoloLearn.Models.Entities;
 using VoloLearn.Repository.Interfaces;
 
-namespace VoloLearn.Repository
+namespace VoloLearn.Repository;
+
+public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
 {
-    public abstract class BaseRepository <TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntiti 
+    protected readonly VoloLearnDbContext _context;
+
+    public BaseRepository(VoloLearnDbContext context)
     {
-        protected readonly VoloLearnDbContext _context;
+        _context = context;
+    }
 
-        public BaseRepository(VoloLearnDbContext context)
-        {
-            _context = context;
+    public virtual async Task<List<TEntity>> GetAllAsync()
+    {
+        return await _context.Set<TEntity>().ToListAsync();
+    }
 
-        }
+    public virtual async Task<TEntity> GetByIdAsync(Guid id)
+    {
+        var result = await _context.Set<TEntity>().FirstOrDefaultAsync(item => item.Id.Equals(id));
 
-        public async virtual Task<List<TEntity>> GetAllAsync()
-        {
-            return await _context.Set<TEntity>().ToListAsync();
-        }
+        if (result is null) throw new Exception("Object not found");
+        return result;
+    }
 
-        public async virtual Task<TEntity> GetByIdAsync(Guid id)
-        {
-            var result = await _context.Set<TEntity>().FirstOrDefaultAsync(item => item.Id.Equals(id));
+    public virtual async Task<Guid> CreateAsync(TEntity entity)
+    {
+        entity.Id = Guid.NewGuid();
+        entity.CreatedDate = DateTime.Now;
 
-            if (result is null)
-            {
-                throw new Exception("Object not found");
-            }
-            return result;
-        }
+        var createdEntity = await _context.Set<TEntity>().AddAsync(entity);
 
-        public async virtual Task<Guid> CreateAsync(TEntity entity)
-        {
-            entity.Id = Guid.NewGuid();
-            entity.CreatedDate = DateTime.Now;
+        return createdEntity.Entity.Id;
+    }
 
-            var createdEntity = await _context.Set<TEntity>().AddAsync(entity);
+    public virtual async Task DaleteAsync(Guid id)
+    {
+        var result = await _context.Set<TEntity>().FirstOrDefaultAsync(item => item.Id.Equals(id));
 
-            return createdEntity.Entity.Id;
-        }
+        if (result is null) return;
 
-        public async virtual Task DaleteAsync(Guid id)
-        {
-            var result = await _context.Set<TEntity>().FirstOrDefaultAsync(item => item.Id.Equals(id));
+        _context.Set<TEntity>().Remove(result);
+    }
 
-            if (result is null)
-            {
-                return ;
-            }
+    public virtual async Task UpdateAsync(TEntity entity)
+    {
+        _context.Entry(entity).State = EntityState.Modified;
+    }
 
-            _context.Set<TEntity>().Remove(result);
-        }
-
-        public async virtual Task UpdateAsync(TEntity entity)
-        {
-            _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public async virtual Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+    public virtual async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

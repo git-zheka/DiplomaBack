@@ -28,6 +28,9 @@ namespace VoloLearn.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -50,16 +53,18 @@ namespace VoloLearn.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedById");
+
                     b.ToTable("Assignments");
                 });
 
-            modelBuilder.Entity("VoloLearn.Models.Entities.AssimnetVisitor", b =>
+            modelBuilder.Entity("VoloLearn.Models.Entities.AssignmentVisitor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AssignmentId")
+                    b.Property<Guid?>("AssignmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -68,7 +73,7 @@ namespace VoloLearn.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("VisitDate")
@@ -81,30 +86,6 @@ namespace VoloLearn.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AssimnetVisitors");
-                });
-
-            modelBuilder.Entity("VoloLearn.Models.Entities.OrganisationAssignments", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AssignmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AssignmentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("OrganisationAssignments");
                 });
 
             modelBuilder.Entity("VoloLearn.Models.Entities.Role", b =>
@@ -126,6 +107,31 @@ namespace VoloLearn.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("VoloLearn.Models.Entities.SchoolCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SchoolCourses");
                 });
 
             modelBuilder.Entity("VoloLearn.Models.Entities.User", b =>
@@ -163,38 +169,24 @@ namespace VoloLearn.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("VoloLearn.Models.Entities.AssimnetVisitor", b =>
+            modelBuilder.Entity("VoloLearn.Models.Entities.Assignment", b =>
                 {
-                    b.HasOne("VoloLearn.Models.Entities.Assignment", "Assignment")
-                        .WithMany()
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("VoloLearn.Models.Entities.User", "CreatedBy")
+                        .WithMany("Assignments")
+                        .HasForeignKey("CreatedById");
 
-                    b.HasOne("VoloLearn.Models.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Assignment");
-
-                    b.Navigation("User");
+                    b.Navigation("CreatedBy");
                 });
 
-            modelBuilder.Entity("VoloLearn.Models.Entities.OrganisationAssignments", b =>
+            modelBuilder.Entity("VoloLearn.Models.Entities.AssignmentVisitor", b =>
                 {
                     b.HasOne("VoloLearn.Models.Entities.Assignment", "Assignment")
                         .WithMany()
-                        .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AssignmentId");
 
                     b.HasOne("VoloLearn.Models.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Assignment");
 
@@ -210,6 +202,11 @@ namespace VoloLearn.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("VoloLearn.Models.Entities.User", b =>
+                {
+                    b.Navigation("Assignments");
                 });
 #pragma warning restore 612, 618
         }

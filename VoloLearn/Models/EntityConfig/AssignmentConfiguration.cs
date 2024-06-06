@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VoloLearn.Models.Entities;
 
-namespace VoloLearn.Models.EntityConfig
+namespace VoloLearn.Models.EntityConfig;
+
+public class AssignmentConfiguration : IEntityTypeConfiguration<Assignment>
 {
-    public class AssignmentConfiguration : IEntityTypeConfiguration<Assignment>
+    public void Configure(EntityTypeBuilder<Assignment> builder)
     {
-        public void Configure(EntityTypeBuilder<Assignment> builder)
-        {
-            builder.HasOne(x => x.CreatedBy);
-        }
+        builder.HasOne(x => x.CreatedBy)
+            .WithMany(y => y.Assignments);
     }
 }
