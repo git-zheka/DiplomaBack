@@ -49,12 +49,13 @@ namespace VoloLearn.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("changestatus")]
-/*        public async Task<IActionResult> ChangeStatus(Guid assignmentId, Guid userId, AssignmentVisitStatus status)
+        public async Task<IActionResult> ChangeStatus(Guid assignmentId, Guid userId, AssignmentVisitStatus status)
         {
-            return Ok(await _assignmentvisitorReposetory.ChangeStatusAsync(assignmentId, userId, status));
+            await _assignmentvisitorReposetory.ChangeStatusAsync(assignmentId, userId, status);
+            return NoContent();
         }
-        */
-        
+
+
         //CreateVisitAsync
 
 

@@ -5,7 +5,6 @@ namespace VoloLearn.Services.Interfaces
 {
     public interface IAssignmentService
     {
-        Task<List<Assignment>> GetAllAssignmentAsync();
         Task<Guid> CreateAssignmentAsync(CreateAssignmentModel assignment);
     }
 }

@@ -8,5 +8,6 @@ namespace VoloLearn.Repository.Interfaces
         Task ChangeStatusAsync(Guid assignmentId, Guid userId, AssignmentVisitStatus status);
         Task<List<Assignment>> GetUsersVisitsAsync(Guid userId);
         Task<List<User>> GetAssignmentVisitorsAsync(Guid assignmentId);
+        Task<int> CalculateUserScoreAsync(Guid userId);
     }
 }
