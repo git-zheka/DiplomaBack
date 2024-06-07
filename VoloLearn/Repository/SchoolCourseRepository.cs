@@ -23,13 +23,13 @@ namespace VoloLearn.Repository
 
             if (founded.Role.Id != schoolRole.Id)
             {
-                throw new Exception("You can't create Assigment");
+                throw new Exception("You can't create Course");
             }
 
             schoolCourse.CreateById = founded;
             var result = await CreateAsync(schoolCourse);
 
-            SaveAsync();
+            await SaveAsync();
             return result;
         }
 

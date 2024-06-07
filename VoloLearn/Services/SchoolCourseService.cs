@@ -1,9 +1,11 @@
 ﻿using VoloLearn.Models.Entities;
+using VoloLearn.Models.Service;
 using VoloLearn.Repository.Interfaces;
+using VoloLearn.Services.Interfaces;
 
 namespace VoloLearn.Services
 {
-    public class SchoolCourseService
+    public class SchoolCourseService : ISchoolCourseService
     {
         private readonly ISchoolCourseRepository _schoolCourseRepository;
 
@@ -13,9 +15,19 @@ namespace VoloLearn.Services
         }
 
 
-/*        public async Task<Guid> CreateCourse()
+        public async Task<Guid> CreateCourseAsync(CreateSchoolCourseModel model)
         {
-            return await 
-        }*/
+
+            var course = new SchoolCourse
+            {
+                Logo = model.Logo,
+                Price = model.Price,
+                Description = model.Description
+            };
+
+            return await _schoolCourseRepository.CreateCourseAsync(model.CreateById, course);
+        }
+
+
     }
 }

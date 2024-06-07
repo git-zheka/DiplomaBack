@@ -30,10 +30,15 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 builder.Services.AddScoped<IAssignmentVisitorRepository, AssignmentVisitorRepository>();
+builder.Services.AddScoped<ISchoolCourseRepository, SchoolCourseRepository>();
+
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 builder.Services.AddScoped<IAssignmentVisitorService, AssignmentVisitorService>();
+builder.Services.AddScoped<ISchoolCourseService, SchoolCourseService>();
+
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
 {

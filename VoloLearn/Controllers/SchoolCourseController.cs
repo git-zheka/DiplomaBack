@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VoloLearn.Models.Service;
 using VoloLearn.Repository.Interfaces;
+using VoloLearn.Services.Interfaces;
 
 namespace VoloLearn.Controllers
 {
@@ -9,19 +11,17 @@ namespace VoloLearn.Controllers
     [ApiController]
     public class SchoolCourseController : ControllerBase
     {
-        private readonly ISchoolCourseRepository _schoolCourseRepository;
+        private readonly ISchoolCourseService _schoolCourseService;
 
-        public SchoolCourseController(ISchoolCourseRepository schoolCourseRepository)
+        public SchoolCourseController(ISchoolCourseService schoolCourseService)
         {
-            _schoolCourseRepository = schoolCourseRepository;
+            _schoolCourseService = schoolCourseService;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("getallCourse")]
-        public async Task<IActionResult> GetAllCourse()
+        [HttpPost]
+        public async Task<IActionResult> GetAllCourse([FromBody] CreateSchoolCourseModel model)
         {
-            return Ok(await _schoolCourseRepository.GetAllAsync());
+            return Ok(await _schoolCourseService.CreateCourseAsync(model));
         }
 
     }
