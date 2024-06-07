@@ -10,49 +10,47 @@ namespace VoloLearn.Controllers;
 [ApiController]
 public class AssignmentVisitorController : ControllerBase
 {
-    private readonly IAssignmentVisitorRepository _assignmentvisitorRepository;
-    private readonly IAssignmentVisitorService _assignmentVisitorService;
 
-    public AssignmentVisitorController(IAssignmentVisitorRepository assignmentvisitorRepository,
-        IAssignmentVisitorService assignmentVisitorService)
-    {
-        _assignmentvisitorRepository = assignmentvisitorRepository;
-        _assignmentVisitorService = assignmentVisitorService;
-    }
+        private readonly IAssignmentVisitorReposetory _assignmentvisitorReposetory;
+        private readonly IAssignmentVisitorService _assignmentVisitorService;
 
-    [HttpGet]
-    [AllowAnonymous]
-    [Route("uservisits")]
-    public async Task<IActionResult> GetUsersVisits(Guid userId)
-    {
-        return Ok(await _assignmentvisitorRepository.GetUsersVisitsAsync(userId));
-    }
+        public AssignmentVisitorController(IAssignmentVisitorReposetory assignmentvisitorReposetory, IAssignmentVisitorService assignmentVisitorService)
+        {
+            _assignmentvisitorReposetory = assignmentvisitorReposetory;
+            _assignmentVisitorService = assignmentVisitorService;
+        }
 
-    [HttpPost]
-    [AllowAnonymous]
-    [Route("assignmentvisits")]
-    public async Task<IActionResult> GetAssignmentVisitors(Guid assignmentid)
-    {
-        return Ok(await _assignmentvisitorRepository.GetAssignmentVisitorsAsync(assignmentid));
-    }
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("uservisits")]
 
-    [HttpPost]
-    [AllowAnonymous]
-    [Route("score")]
-    public async Task<IActionResult> GetScore(Guid userid)
-    {
-        return Ok(await _assignmentvisitorRepository.CalculateUserScoreAsync(userid));
-    }
+        public async Task<IActionResult> GetUsersVisits(Guid userId)
+        {
+           return Ok(await _assignmentvisitorReposetory.GetUsersVisitsAsync(userId));
+        }
 
-    [HttpPost]
-    [AllowAnonymous]
-    [Route("changestatus")]
-    public async Task<IActionResult> ChangeStatus(Guid assignmentId, Guid userId, AssignmentVisitStatus status)
-    {
-        await _assignmentvisitorRepository.ChangeStatusAsync(assignmentId, userId, status);
-        return NoContent();
-    }
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("assignmentvisits")]
+        public async Task<IActionResult> GetAssignmentVisitors(Guid assignmentid)
+        {
+            return Ok(await _assignmentvisitorReposetory.GetAssignmentVisitorsAsync(assignmentid));
+        }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("score")]
+        public async Task<IActionResult> GetScore(Guid userid)
+        {
+            return Ok(await _assignmentvisitorReposetory.CalculateUserScoreAsync(userid));
+        }
 
-    //CreateVisitAsync
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("changestatus")]
+        public async Task<IActionResult> ChangeStatus(Guid assignmentId, Guid userId, AssignmentVisitStatus status)
+        {
+            await _assignmentvisitorReposetory.ChangeStatusAsync(assignmentId, userId, status);
+            return NoContent();
+        }
 }

@@ -1,8 +1,11 @@
-﻿namespace VoloLearn.Models.Entities;
-
-public class SchoolCourse : BaseEntity
+namespace VoloLearn.Models.Entities
 {
-    public int Price { get; set; }
-    public string Logo { get; set; }
-    public string Description { get; set; }
+    public class SchoolCourse : BaseEntiti
+    {
+        public int Price { get; set; }
+        public string Logo { get; set; }
+        public string Description { get ; set; }
+        public User CreateById { get; set; }
+    }
 }
+
