@@ -9,7 +9,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
 {
     protected readonly VoloLearnDbContext _context;
 
-    public BaseRepository(VoloLearnDbContext context)
+    protected BaseRepository(VoloLearnDbContext context)
     {
         _context = context;
     }
@@ -37,7 +37,7 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         return createdEntity.Entity.Id;
     }
 
-    public virtual async Task DaleteAsync(Guid id)
+    public virtual async Task DeleteAsync(Guid id)
     {
         var result = await _context.Set<TEntity>().FirstOrDefaultAsync(item => item.Id.Equals(id));
 

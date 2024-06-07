@@ -7,7 +7,7 @@ public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     Task<List<TEntity>> GetAllAsync();
     Task<TEntity> GetByIdAsync(Guid id);
     Task<Guid> CreateAsync(TEntity entity);
-    Task DaleteAsync(Guid id);
+    Task DeleteAsync(Guid id);
     Task UpdateAsync(TEntity entity);
     Task SaveAsync();
 }
