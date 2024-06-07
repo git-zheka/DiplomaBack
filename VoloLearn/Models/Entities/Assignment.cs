@@ -8,5 +8,6 @@ public class Assignment : BaseEntity
     public int Goal { get; set; }
     public int Reward { get; set; }
 
+    public Guid CreatedById { get; set; }
     public User? CreatedBy { get; set; }
 }
