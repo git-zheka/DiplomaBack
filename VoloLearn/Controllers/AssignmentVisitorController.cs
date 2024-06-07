@@ -11,10 +11,10 @@ namespace VoloLearn.Controllers;
 public class AssignmentVisitorController : ControllerBase
 {
 
-        private readonly IAssignmentVisitorReposetory _assignmentvisitorReposetory;
+        private readonly IAssignmentVisitorRepository _assignmentvisitorReposetory;
         private readonly IAssignmentVisitorService _assignmentVisitorService;
 
-        public AssignmentVisitorController(IAssignmentVisitorReposetory assignmentvisitorReposetory, IAssignmentVisitorService assignmentVisitorService)
+        public AssignmentVisitorController(IAssignmentVisitorRepository assignmentvisitorReposetory, IAssignmentVisitorService assignmentVisitorService)
         {
             _assignmentvisitorReposetory = assignmentvisitorReposetory;
             _assignmentVisitorService = assignmentVisitorService;
