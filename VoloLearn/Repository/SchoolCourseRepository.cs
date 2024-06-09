@@ -26,7 +26,7 @@ namespace VoloLearn.Repository
                 throw new Exception("You can't create Course");
             }
 
-            schoolCourse.CreatedBy = founded;
+            schoolCourse.CreatedById = founded.Id;
             var result = await CreateAsync(schoolCourse);
 
             await SaveAsync();

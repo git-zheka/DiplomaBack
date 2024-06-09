@@ -4,8 +4,10 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using VoloLearn.Constants;
 using VoloLearn.Models.Service;
 using VoloLearn.Options;
+using VoloLearn.Repository.Interfaces;
 using VoloLearn.Services.Interfaces;
 
 namespace VoloLearn.Controllers;
@@ -16,11 +18,13 @@ public class UserController : ControllerBase
 {
     private readonly JWTOptions _jwtoption;
     private readonly IUserService _userService;
+    private readonly IUserRepository _userRepository;
 
-    public UserController(IUserService userService, JWTOptions jwtoption)
+    public UserController(IUserService userService, JWTOptions jwtoption, IUserRepository userRepository)
     {
         _userService = userService;
         _jwtoption = jwtoption;
+        _userRepository = userRepository;
     }
 
     [HttpPost]
@@ -40,6 +44,14 @@ public class UserController : ControllerBase
         var acsestoken = CreateAccessToken(_jwtoption, model.Email, TimeSpan.FromSeconds(_jwtoption.ExpirationSeconds));
 
         return Ok(acsestoken);
+    }
+
+    [HttpPost("change-role/{userId}")]
+    public async Task<IActionResult> ChangeRole([FromRoute]Guid userId)
+    {
+        await _userRepository.SetUserRoleAsync(userId, DefaultRoleName.SchoolName);
+
+        return NoContent();
     }
 
 

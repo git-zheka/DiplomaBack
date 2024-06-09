@@ -34,9 +34,12 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
     public async Task SetUserRoleAsync(Guid id, string roleName)
     {
-        var foundeduser = await _context.Users.FindAsync(id);
+        var foundeduser = await _context.Users.FirstOrDefaultAsync(item => item.Id == id);
         if (foundeduser is null) throw new Exception("User not founded");
         foundeduser.Role = await _roleRepository.GetByNameAsync(roleName);
+        foundeduser.RoleId = foundeduser.Role.Id;
+
+        await UpdateAsync(foundeduser);
         await SaveAsync();
     }
 
