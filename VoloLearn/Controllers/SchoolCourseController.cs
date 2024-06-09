@@ -19,7 +19,7 @@ namespace VoloLearn.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAllCourse([FromBody] CreateSchoolCourseModel model)
+        public async Task<IActionResult> CreateCourse([FromBody] CreateSchoolCourseModel model)
         {
             return Ok(await _schoolCourseService.CreateCourseAsync(model));
         }

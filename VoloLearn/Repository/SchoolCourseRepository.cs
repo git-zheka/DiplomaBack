@@ -10,7 +10,7 @@ namespace VoloLearn.Repository
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
 
-        public SchoolCourseRepository(VoloLearnDbContext context, UserRepository userRepository, RoleRepository roleRepository) : base(context)
+        public SchoolCourseRepository(VoloLearnDbContext context, IUserRepository userRepository, IRoleRepository roleRepository) : base(context)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
@@ -21,7 +21,7 @@ namespace VoloLearn.Repository
             var founded = await _userRepository.GetByIdAsync(userid);
             var schoolRole = await _roleRepository.GetByNameAsync(DefaultRoleName.SchoolName);
 
-            if (founded.Role.Id != schoolRole.Id)
+            if (founded.RoleId != schoolRole.Id)
             {
                 throw new Exception("You can't create Course");
             }
