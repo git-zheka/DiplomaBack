@@ -30,7 +30,7 @@ public class AssigmmentController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> CreateAssignment([FromBody] CreateAssignmentModel model)
     {
-        if (ModelState.IsValid) return BadRequest(ModelState);
+        //if (ModelState.IsValid) return BadRequest(ModelState);
 
         await _assignmentService.CreateAssignmentAsync(model);
 

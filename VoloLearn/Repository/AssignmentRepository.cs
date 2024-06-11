@@ -23,7 +23,7 @@ public class AssignmentRepository : BaseRepository<Assignment>, IAssignmentRepos
         var founded = await _userRepository.GetByIdAsync(userid);
         var organisationRole = await _roleRepository.GetByNameAsync(DefaultRoleName.OrganisationName);
 
-        if (founded.Role.Id != organisationRole.Id) throw new Exception("You can't create Assigment");
+        if (founded.RoleId != organisationRole.Id) throw new Exception("You can't create Assigment");
 
         assignment.CreatedById = founded.Id;
         var result = await CreateAsync(assignment);

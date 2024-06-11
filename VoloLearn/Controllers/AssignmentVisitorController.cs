@@ -10,7 +10,6 @@ namespace VoloLearn.Controllers;
 [ApiController]
 public class AssignmentVisitorController : ControllerBase
 {
-
         private readonly IAssignmentVisitorRepository _assignmentvisitorReposetory;
         private readonly IAssignmentVisitorService _assignmentVisitorService;
 
@@ -29,7 +28,7 @@ public class AssignmentVisitorController : ControllerBase
            return Ok(await _assignmentvisitorReposetory.GetUsersVisitsAsync(userId));
         }
 
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         [Route("assignmentvisits")]
         public async Task<IActionResult> GetAssignmentVisitors(Guid assignmentid)
@@ -53,4 +52,14 @@ public class AssignmentVisitorController : ControllerBase
             await _assignmentvisitorReposetory.ChangeStatusAsync(assignmentId, userId, status);
             return NoContent();
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("createvisit")]
+        public async Task<IActionResult> CreateVisitAsssignment(Guid assignmentId, Guid userId)
+        {
+            await _assignmentvisitorReposetory.CreateVisitAsync(assignmentId, userId);
+            return NoContent();
+        }
+
 }

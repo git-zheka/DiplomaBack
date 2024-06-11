@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using VoloLearn.Constants;
+using VoloLearn.Models.Entities;
 using VoloLearn.Models.Service;
 using VoloLearn.Options;
 using VoloLearn.Repository.Interfaces;
@@ -42,17 +43,22 @@ public class UserController : ControllerBase
     {
         await _userService.LoginAsync(model);
         var acsestoken = CreateAccessToken(_jwtoption, model.Email, TimeSpan.FromSeconds(_jwtoption.ExpirationSeconds));
+        User user = await _userRepository.GetUserByEmail(model.Email);
 
-        return Ok(acsestoken);
+        GetUserModel userInfo = new GetUserModel
+        {
+            Id = user.Id,
+            FullName = user.FullName,
+            Email = user.Email,
+            Phone = user.Phone,
+            BearerToken = acsestoken,
+            Role = user.RoleId.ToString()
+        };
+
+        return Ok(userInfo);
     }
 
-    [HttpPost("change-role/{userId}")]
-    public async Task<IActionResult> ChangeRole([FromRoute]Guid userId)
-    {
-        await _userRepository.SetUserRoleAsync(userId, DefaultRoleName.SchoolName);
 
-        return NoContent();
-    }
 
 
     private static string CreateAccessToken(

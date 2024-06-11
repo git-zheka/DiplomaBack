@@ -66,6 +66,12 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         await SaveAsync();
     }
 
+    public async Task<User> GetUserByEmail(string email)
+    {
+         return _context.Users.FirstOrDefault(x => x.Email == email);
+    }
+
+
     private async Task<string> CreatePasswordHash(string password)
     {
         var secret = _configuration.GetValue<string>("SecretString");

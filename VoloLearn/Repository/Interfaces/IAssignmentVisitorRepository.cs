@@ -9,4 +9,5 @@ public interface IAssignmentVisitorRepository
     Task<List<Assignment>> GetUsersVisitsAsync(Guid userId);
     Task<List<User>> GetAssignmentVisitorsAsync(Guid assignmentId);
     Task<int> CalculateUserScoreAsync(Guid userId);
+    Task<Guid> CreateVisitAsync(Guid assignmentId, Guid userId);
 }

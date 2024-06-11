@@ -41,5 +41,6 @@ public class UserService : IUserService
 
         if (!await _userRepository.CheckUserPasswordAsync(model.Email, model.Password))
             throw new Exception("Password is not walid");
+
     }
 }

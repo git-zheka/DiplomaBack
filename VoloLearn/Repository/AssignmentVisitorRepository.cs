@@ -5,7 +5,6 @@ using VoloLearn.Models.Enum;
 using VoloLearn.Repository.Interfaces;
 
 namespace VoloLearn.Repository;
-
 public class AssignmentVisitorRepository : BaseRepository<AssignmentVisitor>, IAssignmentVisitorRepository
 {
     private readonly IAssignmentRepository _assignmentRepository;
@@ -38,6 +37,7 @@ public class AssignmentVisitorRepository : BaseRepository<AssignmentVisitor>, IA
             .Include(assignmentVisitor => assignmentVisitor.User)
             .Where(x => x.User.Id == userId)
             .Select(x => x.Assignment).ToListAsync();
+
         return foundedFisits;
     }
 
@@ -68,8 +68,8 @@ public class AssignmentVisitorRepository : BaseRepository<AssignmentVisitor>, IA
     {
         var checkUser = await _userRepository.GetByIdAsync(userId);
         var checkAssinment = await _assignmentRepository.GetByIdAsync(assignmentId);
-        var assignmentVisitor = new AssignmentVisitor
-            { Assignment = checkAssinment, User = checkUser, VisitDate = DateTime.Now };
+        var assignmentVisitor = new AssignmentVisitor { AssignmentId = checkAssinment.Id, UserId = checkUser.Id, VisitDate = DateTime.Now };
+        
         var result = await CreateAsync(assignmentVisitor);
         await SaveAsync();
         return result;

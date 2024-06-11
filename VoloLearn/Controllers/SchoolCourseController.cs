@@ -12,16 +12,24 @@ namespace VoloLearn.Controllers
     public class SchoolCourseController : ControllerBase
     {
         private readonly ISchoolCourseService _schoolCourseService;
+        private readonly ISchoolCourseRepository _schoolCourseRepository;
 
-        public SchoolCourseController(ISchoolCourseService schoolCourseService)
+        public SchoolCourseController(ISchoolCourseService schoolCourseService, ISchoolCourseRepository schoolCourseRepository)
         {
             _schoolCourseService = schoolCourseService;
+            _schoolCourseRepository = schoolCourseRepository;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] CreateSchoolCourseModel model)
         {
             return Ok(await _schoolCourseService.CreateCourseAsync(model));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCourse()
+        {
+            return Ok(await _schoolCourseRepository.GetAllAsync());
         }
 
     }
