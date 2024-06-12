@@ -25,7 +25,8 @@ public class AssignmentVisitorController : ControllerBase
 
         public async Task<IActionResult> GetUsersVisits(Guid userId)
         {
-           return Ok(await _assignmentvisitorReposetory.GetUsersVisitsAsync(userId));
+            var allVisits = await _assignmentvisitorReposetory.GetUsersVisitsAsync(userId);
+           return Ok(  allVisits );
         }
 
         [HttpGet]

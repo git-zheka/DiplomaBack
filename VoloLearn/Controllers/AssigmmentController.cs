@@ -36,4 +36,11 @@ public class AssigmmentController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet("user/{userId:guid}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAllUsersAssignments([FromRoute] Guid userId)
+    {
+        return Ok(await _assignmentRepository.GetAssignmentsByUserIdAsync(userId));
+    }
 }

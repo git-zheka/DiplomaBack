@@ -1,4 +1,5 @@
-﻿using VoloLearn.Constants;
+﻿using Microsoft.EntityFrameworkCore;
+using VoloLearn.Constants;
 using VoloLearn.DataBase;
 using VoloLearn.Models.Entities;
 using VoloLearn.Repository.Interfaces;
@@ -30,5 +31,13 @@ public class AssignmentRepository : BaseRepository<Assignment>, IAssignmentRepos
         await SaveAsync();
 
         return result;
+    }
+
+    public async Task<List<Assignment>> GetAssignmentsByUserIdAsync (Guid userid)
+    {
+
+
+        var assignments = await _context.Assignments.Where(x => x.CreatedById.Equals(userid)).ToListAsync();
+        return assignments;
     }
 }

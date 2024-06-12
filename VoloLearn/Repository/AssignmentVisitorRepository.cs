@@ -27,7 +27,8 @@ public class AssignmentVisitorRepository : BaseRepository<AssignmentVisitor>, IA
                 x.Assignment.Id == assignmentId && x.User.Id == userId);
         if (founded == null) throw new Exception("Visit not founded");
         founded.Status = status;
-        await SaveAsync();
+        await UpdateAsync(founded);
+       await SaveAsync();
     }
 
     public async Task<List<Assignment>> GetUsersVisitsAsync(Guid userId)
