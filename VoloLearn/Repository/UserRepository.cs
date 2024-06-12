@@ -20,12 +20,13 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         _roleRepository = roleRepository;
     }
 
-    public async Task<Guid> CreateUserAsync(User user, string password)
+    public async Task<Guid> CreateUserAsync(User user, string password, string roleName)
     {
         user.PasswordHash = await CreatePasswordHash(password);
-        var role = await _roleRepository.GetByNameAsync(DefaultRoleName.VolonteerName);
+        var role = await _roleRepository.GetByNameAsync(roleName);
         user.RoleId = role.Id;
         var result = await CreateAsync(user);
+
         await SaveAsync();
 
         return result;
@@ -34,10 +35,11 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
     public async Task SetUserRoleAsync(Guid id, string roleName)
     {
-        var foundeduser = await _context.Users.FirstOrDefaultAsync(item => item.Id == id);
+
+        var foundeduser = await _context.Users.AsNoTracking().FirstOrDefaultAsync(item => item.Id == id);
         if (foundeduser is null) throw new Exception("User not founded");
-        foundeduser.Role = await _roleRepository.GetByNameAsync(roleName);
-        foundeduser.RoleId = foundeduser.Role.Id;
+         var Role = await _roleRepository.GetByNameAsync(roleName);
+        foundeduser.RoleId = Role.Id;
 
         await UpdateAsync(foundeduser);
         await SaveAsync();

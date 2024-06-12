@@ -45,6 +45,7 @@ public class AssignmentVisitorRepository : BaseRepository<AssignmentVisitor>, IA
     {
         var foundedFisits = await _context.AssignmentVisitors
             .Include(assignmentVisitor => assignmentVisitor.Assignment)
+            .Include(assignmentVisitor => assignmentVisitor.User)
             .Where(x => x.Assignment.Id == assignmentId)
             .Select(x => x.User).ToListAsync();
         return foundedFisits;

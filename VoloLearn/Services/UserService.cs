@@ -26,11 +26,7 @@ public class UserService : IUserService
         user.Email = model.Email;
         user.Phone = model.Phone;
 
-        var resulId = await _userRepository.CreateUserAsync(user, model.Password);
-
-        await _roleRepository.GetByNameAsync(model.RoleName);
-
-        await _userRepository.SetUserRoleAsync(resulId, model.RoleName);
+        var resulId = await _userRepository.CreateUserAsync(user, model.Password, model.RoleName);
 
         return resulId;
     }
