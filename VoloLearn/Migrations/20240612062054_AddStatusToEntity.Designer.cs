@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VoloLearn.DataBase;
 
@@ -11,9 +12,11 @@ using VoloLearn.DataBase;
 namespace VoloLearn.Migrations
 {
     [DbContext(typeof(VoloLearnDbContext))]
-    partial class VoloLearnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240612062054_AddStatusToEntity")]
+    partial class AddStatusToEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

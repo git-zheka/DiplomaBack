@@ -1,4 +1,6 @@
-﻿namespace VoloLearn.Models.Entities;
+﻿using VoloLearn.Models.Enum;
+
+namespace VoloLearn.Models.Entities;
 
 public class Assignment : BaseEntity
 {
@@ -10,4 +12,6 @@ public class Assignment : BaseEntity
 
     public Guid CreatedById { get; set; }
     public User? CreatedBy { get; set; }
+
+    public AssignmentStatus Status { get; set; } = AssignmentStatus.InProgress;
 }
