@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VoloLearn.Models.Enum;
+using VoloLearn.Models.Service;
 using VoloLearn.Repository.Interfaces;
 using VoloLearn.Services.Interfaces;
 
@@ -45,12 +46,11 @@ public class AssignmentVisitorController : ControllerBase
             return Ok(await _assignmentvisitorReposetory.CalculateUserScoreAsync(userid));
         }
 
-        [HttpPost]
+        [HttpPost("changestatus")]
         [AllowAnonymous]
-        [Route("changestatus")]
-        public async Task<IActionResult> ChangeStatus(Guid assignmentId, Guid userId, AssignmentVisitStatus status)
+        public async Task<IActionResult> ChangeStatus([FromBody]ChangeVisitorStatusModel model)
         {
-            await _assignmentvisitorReposetory.ChangeStatusAsync(assignmentId, userId, status);
+            await _assignmentvisitorReposetory.ChangeStatusAsync(model.AssignmentId, model.UserId, model.Status);
             return NoContent();
         }
 
